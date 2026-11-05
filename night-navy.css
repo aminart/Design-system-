@@ -1,0 +1,233 @@
+/*
+ * Night Navy — design system commun (SpecGen, Audit ergonomique, Analyse documentaire)
+ * Version 1.0.0
+ *
+ * Jetons de couleur, typographie et formes, en mode clair (palette de SpecGen) et sombre.
+ * Chaque jeton garde le même nom dans les deux modes : un écran écrit avec ces variables
+ * change de thème sans modification.
+ *
+ * Choix du thème, sur la balise <html> :
+ *   (rien)               suit le réglage du système (clair ou sombre)
+ *   data-theme="light"   force le clair
+ *   data-theme="dark"    force le sombre
+ * Voir theme-toggle.js pour un bouton qui bascule et mémorise le choix.
+ *
+ * Aucune police n'est chargée ici (les apps fonctionnent hors ligne) : Roboto est utilisée si elle
+ * est installée ou chargée par l'app, sinon Arial / la police système.
+ */
+
+/* ---------------------------------------------------------------- Clair (par défaut) */
+:root {
+  color-scheme: light;
+
+  /* Fonds et surfaces : plus une surface est au premier plan, plus elle est claire */
+  --nn-bg: #F5F6F9;            /* fond de page */
+  --nn-surface: #FFFFFF;       /* panneaux, cartes, en-tête */
+  --nn-surface-2: #F7F8FE;     /* zones en retrait, en-têtes de tableau, champs */
+  --nn-surface-3: #F2F3F8;     /* survol */
+
+  /* Traits */
+  --nn-line: #E2E4EC;          /* bordures de cartes, séparateurs */
+  --nn-line-strong: #D5D8E3;   /* bordures de champs et de boutons secondaires */
+  --nn-line-dashed: #A9AFC4;   /* zones de dépôt */
+
+  /* Texte */
+  --nn-ink: #1B1D2A;           /* titres, texte principal */
+  --nn-ink-body: #2B2E3E;      /* texte courant */
+  --nn-ink-muted: #4A4E61;     /* descriptions */
+  --nn-ink-subtle: #5A5F73;    /* aides, légendes */
+
+  /* Marque */
+  --nn-accent: #0F1D96;        /* liens, onglet actif, titres de marque */
+  --nn-primary: #0F1D96;       /* fond des boutons principaux */
+  --nn-primary-hover: #0A1470;
+  --nn-primary-disabled: #C4C8DA;
+  --nn-on-primary: #FFFFFF;    /* texte sur bouton principal */
+  --nn-on-primary-disabled: #FFFFFF;
+  --nn-accent-soft: #EEF0FB;   /* fond d'élément sélectionné, bouton doux */
+  --nn-accent-softer: #F7F8FE;
+  --nn-accent-ink: #0F1D96;    /* texte sur fond accent-soft */
+  --nn-accent-muted: #5C66B8;
+
+  /* États */
+  --nn-success: #1E8A52;
+  --nn-success-text: #17663F;
+  --nn-success-soft: #E9F6EF;
+  --nn-warning: #C77700;
+  --nn-warning-text: #7A4B00;
+  --nn-warning-soft: #FFF7E6;
+  --nn-warning-line: #F3D9A4;
+  --nn-danger: #B42318;
+  --nn-danger-text: #B42318;
+  --nn-danger-soft: #FDECEB;
+
+  /* Propositions de l'IA */
+  --nn-ia: #6B4FA3;
+  --nn-ia-soft: #EFEAF8;
+
+  /* Anneau de focus */
+  --nn-focus: #0F1D96;
+
+  /* Typographie */
+  --nn-font-sans: "Roboto", Arial, system-ui, sans-serif;
+  --nn-font-mono: "Roboto Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  /* Formes */
+  --nn-radius-sm: 6px;
+  --nn-radius: 8px;            /* boutons, champs */
+  --nn-radius-md: 10px;        /* fichiers, encarts */
+  --nn-radius-lg: 14px;        /* cartes, sections */
+  --nn-radius-full: 999px;     /* pastilles */
+}
+
+/* ---------------------------------------------------------------- Sombre */
+/* Les valeurs sont écrites deux fois (préférence système, puis choix forcé) : CSS ne permet pas
+   de partager un bloc entre une media query et un sélecteur. Modifier les deux ensemble. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --nn-bg: #0A0C16;
+    --nn-surface: #111427;
+    --nn-surface-2: #171A30;
+    --nn-surface-3: #1F2340;
+    --nn-line: #262A45;
+    --nn-line-strong: #343A5C;
+    --nn-line-dashed: #4A5178;
+    --nn-ink: #EDEFF8;
+    --nn-ink-body: #C6CADF;
+    --nn-ink-muted: #A0A6C2;
+    --nn-ink-subtle: #858CAD;
+    --nn-accent: #8E9BFF;
+    --nn-primary: #4B5BEF;
+    --nn-primary-hover: #5D6CF5;
+    --nn-primary-disabled: #1F2340;
+    --nn-on-primary: #FFFFFF;
+    --nn-on-primary-disabled: #6B7194;
+    --nn-accent-soft: #1B2152;
+    --nn-accent-softer: #141834;
+    --nn-accent-ink: #C3CAFF;
+    --nn-accent-muted: #6E7AD6;
+    --nn-success: #4CCB8E;
+    --nn-success-text: #4CCB8E;
+    --nn-success-soft: #0F2A1F;
+    --nn-warning: #F0B35B;
+    --nn-warning-text: #F5C77E;
+    --nn-warning-soft: #2C220F;
+    --nn-warning-line: #5A4520;
+    --nn-danger: #F1847B;
+    --nn-danger-text: #F1847B;
+    --nn-danger-soft: #331715;
+    --nn-ia: #C2AEF5;
+    --nn-ia-soft: #251E3D;
+    --nn-focus: #8E9BFF;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --nn-bg: #0A0C16;
+  --nn-surface: #111427;
+  --nn-surface-2: #171A30;
+  --nn-surface-3: #1F2340;
+  --nn-line: #262A45;
+  --nn-line-strong: #343A5C;
+  --nn-line-dashed: #4A5178;
+  --nn-ink: #EDEFF8;
+  --nn-ink-body: #C6CADF;
+  --nn-ink-muted: #A0A6C2;
+  --nn-ink-subtle: #858CAD;
+  --nn-accent: #8E9BFF;
+  --nn-primary: #4B5BEF;
+  --nn-primary-hover: #5D6CF5;
+  --nn-primary-disabled: #1F2340;
+  --nn-on-primary: #FFFFFF;
+  --nn-on-primary-disabled: #6B7194;
+  --nn-accent-soft: #1B2152;
+  --nn-accent-softer: #141834;
+  --nn-accent-ink: #C3CAFF;
+  --nn-accent-muted: #6E7AD6;
+  --nn-success: #4CCB8E;
+  --nn-success-text: #4CCB8E;
+  --nn-success-soft: #0F2A1F;
+  --nn-warning: #F0B35B;
+  --nn-warning-text: #F5C77E;
+  --nn-warning-soft: #2C220F;
+  --nn-warning-line: #5A4520;
+  --nn-danger: #F1847B;
+  --nn-danger-text: #F1847B;
+  --nn-danger-soft: #331715;
+  --nn-ia: #C2AEF5;
+  --nn-ia-soft: #251E3D;
+  --nn-focus: #8E9BFF;
+}
+
+/* ---------------------------------------------------------------- Base */
+html, body {
+  background: var(--nn-bg);
+  color: var(--nn-ink);
+  font-family: var(--nn-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------------------------------------- Composants de base
+   Classes facultatives, utilisables sans Tailwind. Préfixe nn- pour ne rien écraser dans les apps. */
+.nn-card {
+  background: var(--nn-surface);
+  border: 1px solid var(--nn-line);
+  border-radius: var(--nn-radius-lg);
+}
+
+.nn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--nn-radius);
+  font: 500 14px/1 var(--nn-font-sans);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.nn-btn:focus-visible { outline: 2px solid var(--nn-focus); outline-offset: 2px; }
+.nn-btn:disabled { cursor: not-allowed; }
+
+.nn-btn-primary { background: var(--nn-primary); color: var(--nn-on-primary); }
+.nn-btn-primary:hover { background: var(--nn-primary-hover); }
+.nn-btn-primary:disabled { background: var(--nn-primary-disabled); color: var(--nn-on-primary-disabled); }
+
+.nn-btn-secondary { background: var(--nn-surface); color: var(--nn-ink); border: 1px solid var(--nn-line-strong); }
+.nn-btn-secondary:hover { background: var(--nn-surface-3); }
+
+.nn-btn-soft { background: var(--nn-accent-soft); color: var(--nn-accent-ink); }
+.nn-btn-soft:hover { background: var(--nn-surface-3); }
+
+.nn-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border: 1px solid var(--nn-line-strong);
+  border-radius: var(--nn-radius);
+  background: var(--nn-surface);
+  color: var(--nn-ink);
+  font: 14px var(--nn-font-sans);
+}
+.nn-input::placeholder { color: var(--nn-ink-subtle); }
+.nn-input:focus { outline: none; border-color: var(--nn-focus); box-shadow: 0 0 0 3px var(--nn-accent-soft); }
+
+.nn-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--nn-radius-full);
+  background: var(--nn-surface-3);
+  color: var(--nn-ink-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+.nn-chip-success { background: var(--nn-success-soft); color: var(--nn-success-text); }
+.nn-chip-warning { background: var(--nn-warning-soft); color: var(--nn-warning-text); }
+.nn-chip-danger { background: var(--nn-danger-soft); color: var(--nn-danger-text); }
+.nn-chip-ia { background: var(--nn-ia-soft); color: var(--nn-ia); }

@@ -1,0 +1,64 @@
+/*
+ * Night Navy — branchement Tailwind v4 (Audit ergonomique).
+ *
+ * Dans le CSS principal :
+ *   @import "tailwindcss";
+ *   @import "./night-navy/night-navy.css";
+ *   @import "./night-navy/tailwind-v4.css";
+ *
+ * Donne les classes bg-surface, text-ink-muted, bg-primary, border-line… qui suivent le thème.
+ * Les modificateurs d'opacité (bg-primary/25) fonctionnent en v4.
+ */
+
+/* dark: suit le système, sauf thème forcé (data-theme sur <html>) */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) { @slot; }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) { @slot; }
+  }
+}
+
+@theme inline {
+  --color-bg: var(--nn-bg);
+  --color-surface: var(--nn-surface);
+  --color-surface-2: var(--nn-surface-2);
+  --color-surface-3: var(--nn-surface-3);
+  --color-line: var(--nn-line);
+  --color-line-strong: var(--nn-line-strong);
+  --color-line-dashed: var(--nn-line-dashed);
+  --color-ink: var(--nn-ink);
+  --color-ink-body: var(--nn-ink-body);
+  --color-ink-muted: var(--nn-ink-muted);
+  --color-ink-subtle: var(--nn-ink-subtle);
+  --color-accent: var(--nn-accent);
+  --color-accent-soft: var(--nn-accent-soft);
+  --color-accent-softer: var(--nn-accent-softer);
+  --color-accent-ink: var(--nn-accent-ink);
+  --color-accent-muted: var(--nn-accent-muted);
+  --color-primary: var(--nn-primary);
+  --color-primary-hover: var(--nn-primary-hover);
+  --color-primary-disabled: var(--nn-primary-disabled);
+  --color-on-primary: var(--nn-on-primary);
+  --color-on-primary-disabled: var(--nn-on-primary-disabled);
+  --color-success: var(--nn-success);
+  --color-success-text: var(--nn-success-text);
+  --color-success-soft: var(--nn-success-soft);
+  --color-warning: var(--nn-warning);
+  --color-warning-text: var(--nn-warning-text);
+  --color-warning-soft: var(--nn-warning-soft);
+  --color-warning-line: var(--nn-warning-line);
+  --color-danger: var(--nn-danger);
+  --color-danger-text: var(--nn-danger-text);
+  --color-danger-soft: var(--nn-danger-soft);
+  --color-ia: var(--nn-ia);
+  --color-ia-soft: var(--nn-ia-soft);
+  --color-focus: var(--nn-focus);
+
+  --font-sans: var(--nn-font-sans);
+  --font-mono: var(--nn-font-mono);
+
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}

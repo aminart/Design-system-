@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Night Navy — exemple</title>
+<script src="theme-toggle.js"></script>
+<link rel="stylesheet" href="night-navy.css">
+<style>
+  body { margin: 0; padding: 40px 24px; }
+  main { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  h1 { margin: 0; font-size: 30px; color: var(--nn-ink); }
+  p { margin: 0; color: var(--nn-ink-muted); line-height: 1.5; }
+  label { display: block; margin-bottom: 6px; font-size: 15px; font-weight: 500; }
+</style>
+</head>
+<body>
+<main>
+  <div class="row" style="justify-content: space-between">
+    <h1>Night Navy</h1>
+    <button type="button" class="nn-btn nn-btn-secondary" onclick="NightNavy.toggle()">Clair / sombre</button>
+  </div>
+  <p>Page d'exemple : les mêmes classes et variables, en mode clair et en mode sombre.</p>
+  <section class="nn-card" style="padding: 24px; display: flex; flex-direction: column; gap: 16px">
+    <div class="row">
+      <span class="nn-chip nn-chip-success">LLM connecté</span>
+      <span class="nn-chip nn-chip-warning">À vérifier</span>
+      <span class="nn-chip nn-chip-danger">Critique</span>
+      <span class="nn-chip nn-chip-ia">Proposé par l'IA</span>
+      <span class="nn-chip">Neutre</span>
+    </div>
+    <div>
+      <label for="titre">Titre du document</label>
+      <input id="titre" class="nn-input" placeholder="Spécification UX / HMI">
+    </div>
+    <div class="row">
+      <button type="button" class="nn-btn nn-btn-primary">Générer</button>
+      <button type="button" class="nn-btn nn-btn-soft">Markdown</button>
+      <button type="button" class="nn-btn nn-btn-secondary">Annuler</button>
+      <button type="button" class="nn-btn nn-btn-primary" disabled>Désactivé</button>
+    </div>
+    <p>Lien : <a href="#" style="color: var(--nn-accent)">ouvrir les paramètres</a> · <code style="font-family: var(--nn-font-mono); color: var(--nn-accent-ink); background: var(--nn-accent-soft); padding: 2px 6px; border-radius: 6px">GUI-01</code></p>
+  </section>
+</main>
+</body>
+</html>

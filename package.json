@@ -1,0 +1,18 @@
+{
+  "name": "night-navy",
+  "version": "1.0.0",
+  "description": "Design system commun de la suite UX (SpecGen, Audit ergonomique, Analyse documentaire) : palette claire de SpecGen et mode sombre Night Navy.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "private": true,
+  "files": ["night-navy.css", "tailwind-v3-preset.js", "tailwind-v4.css", "theme-toggle.js"],
+  "exports": {
+    ".": "./night-navy.css",
+    "./night-navy.css": "./night-navy.css",
+    "./tailwind-v3-preset": "./tailwind-v3-preset.js",
+    "./tailwind-v4.css": "./tailwind-v4.css",
+    "./theme-toggle": "./theme-toggle.js"
+  },
+  "style": "night-navy.css",
+  "repository": { "type": "git", "url": "https://github.com/aminart/Design-system-.git" }
+}
