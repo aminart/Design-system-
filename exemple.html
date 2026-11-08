@@ -7,7 +7,8 @@
 <script src="theme-toggle.js"></script>
 <link rel="stylesheet" href="night-navy.css">
 <style>
-  body { margin: 0; padding: 40px 24px; }
+  body { margin: 0; }
+  .page { padding: 40px 24px; }
   main { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
   .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
   h1 { margin: 0; font-size: 30px; color: var(--nn-ink); }
@@ -16,12 +17,29 @@
 </style>
 </head>
 <body>
+<header class="nn-appbar">
+  <a class="nn-appbar-brand" href="#"><svg width="32" height="32" viewBox="0 0 32 32" class="nn-appbar-icon" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0F1D96"/><rect x="9" y="8" width="14" height="16" rx="3" fill="#fff"/></svg> Exemple</a>
+  <nav class="nn-appbar-nav" aria-label="Navigation">
+    <a class="nn-appbar-tab" aria-current="page" href="#">Accueil</a>
+    <a class="nn-appbar-tab" href="#">Nouvelle analyse</a>
+    <a class="nn-appbar-tab" href="#">Historique</a>
+  </nav>
+  <div class="nn-appbar-tools">
+    <button type="button" class="nn-icon-btn" aria-label="Aide"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg></button>
+    <div class="nn-segmented" role="group" aria-label="Langue"><button type="button" aria-pressed="true">FR</button><button type="button" aria-pressed="false">EN</button></div>
+    <button type="button" class="nn-icon-btn" aria-label="Changer de thème" onclick="NightNavy.toggle()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    <button type="button" class="nn-icon-btn" aria-label="Réglages"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></button>
+  </div>
+</header>
+<div class="page">
 <main>
-  <div class="row" style="justify-content: space-between">
-    <h1>Night Navy</h1>
+  <div class="nn-page-head">
+    <div>
+      <h1 class="nn-page-title">Night Navy</h1>
+      <p class="nn-page-subtitle">Page d'exemple : les mêmes classes et variables, en mode clair et en mode sombre.</p>
+    </div>
     <button type="button" class="nn-btn nn-btn-secondary" onclick="NightNavy.toggle()">Clair / sombre</button>
   </div>
-  <p>Page d'exemple : les mêmes classes et variables, en mode clair et en mode sombre.</p>
   <section class="nn-card" style="padding: 24px; display: flex; flex-direction: column; gap: 16px">
     <div class="row">
       <span class="nn-chip nn-chip-success">LLM connecté</span>
@@ -43,5 +61,6 @@
     <p>Lien : <a href="#" style="color: var(--nn-accent)">ouvrir les paramètres</a> · <code style="font-family: var(--nn-font-mono); color: var(--nn-accent-ink); background: var(--nn-accent-soft); padding: 2px 6px; border-radius: 6px">GUI-01</code></p>
   </section>
 </main>
+</div>
 </body>
 </html>
