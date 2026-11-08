@@ -1,16 +1,16 @@
 # Night Navy — design system commun
 
-Feuille de style commune à SpecGen, Audit ergonomique et Analyse documentaire : la palette claire de SpecGen et son mode sombre « Night Navy », sous les mêmes noms de variables.
+Feuille de style commune à SpecGen, AuditErgo et DocAnalyser : la palette claire de SpecGen et son mode sombre « Night Navy », sous les mêmes noms de variables.
 
 | Fichier | Rôle |
 |---|---|
 | `night-navy.css` | Les jetons (`--nn-*`) en clair et en sombre, la base de page et quelques classes `nn-` (bouton, champ, carte, pastille). Fonctionne sans Tailwind. |
-| `tailwind-v3-preset.js` | Branchement Tailwind v3 : SpecGen, Analyse documentaire. |
-| `tailwind-v4.css` | Branchement Tailwind v4 : Audit ergonomique. |
+| `tailwind-v3-preset.js` | Branchement Tailwind v3 : SpecGen, DocAnalyser. |
+| `tailwind-v4.css` | Branchement Tailwind v4 : AuditErgo. |
 | `theme-toggle.js` | Bascule clair / sombre, mémorisée dans le navigateur. |
 | `exemple.html` | Page de démonstration : ouvrir dans un navigateur. |
 
-Version : 1.0.0.
+Version : 1.1.0.
 
 ## Choix du thème
 
@@ -24,7 +24,7 @@ Sur la balise `<html>` :
 
 `theme-toggle.js` pose cet attribut et retient le choix. À charger dans `<head>`, avant le CSS, pour éviter un flash de la mauvaise couleur au chargement. Ensuite : `NightNavy.toggle()`, `NightNavy.set("dark" | "light" | null)`, `NightNavy.current()`. L'évènement `nn-themechange` est émis sur `<html>` à chaque changement, pour qu'un composant React se mette à jour.
 
-C'est le même mécanisme que celui d'Audit ergonomique : son bouton actuel continue de fonctionner.
+C'est le même mécanisme que celui d'AuditErgo : son bouton actuel continue de fonctionner.
 
 ## Les jetons
 
@@ -52,7 +52,7 @@ La liste complète est en tête de `night-navy.css`. Les contrastes du mode somb
 Dans le dossier du frontend de l'app :
 
 ```bash
-npm install --save-dev github:aminart/Design-system-#v1.0.0
+npm install --save-dev github:aminart/Design-system-#v1.1.0
 ```
 
 Le paquet s'appelle `night-navy` : les fichiers sont ensuite importés depuis `night-navy/…`. Le numéro après `#` fige la version : une app ne change pas de style tant qu'on ne met pas à jour ce numéro.
@@ -80,7 +80,7 @@ Retirer l'ancien bloc `colors` : le preset redonne `navy`, `ink`, `line`, `groun
 - `bg-white` → `bg-surface`, `hover:bg-[#F2F3F8]` → `hover:bg-surface-3` ;
 - les couleurs écrites en dur (`#…`), environ 60.
 
-### Analyse documentaire (Tailwind v3)
+### DocAnalyser (Tailwind v3)
 
 Même preset. Ses variables `--ad-*` peuvent pointer vers les jetons communs dans `src/theme.css`, ce qui évite de toucher aux classes :
 
@@ -97,7 +97,7 @@ Même preset. Ses variables `--ad-*` peuvent pointer vers les jetons communs dan
 
 Puis remplacer les `bg-white` et les couleurs écrites en dur, environ 120.
 
-### Audit ergonomique (Tailwind v4)
+### AuditErgo (Tailwind v4)
 
 `web/src/index.css` :
 
@@ -119,6 +119,50 @@ Avec les fichiers copiés à côté de la page :
 
 <button class="nn-btn nn-btn-primary">Générer</button>
 <span class="nn-chip nn-chip-success">LLM connecté</span>
+```
+
+## En-tête d'app et titre de page (1.1.0)
+
+Toutes les apps de la suite ont le **même en-tête**, en trois zones toujours dans cet ordre :
+
+1. **Identité** : icône de l'app (32 px) et son nom ;
+2. **Navigation** : onglets soulignés, l'onglet actif en bleu marine (`aria-current="page"`) ;
+3. **Utilitaires**, dans cet ordre : aide, langue (FR / EN), thème, réglages.
+
+**Seule l'icône a sa couleur propre** : tout le reste (onglet actif, boutons, pastilles) suit les jetons. Une
+nouvelle app n'a qu'une icône à fournir.
+
+```html
+<header class="nn-appbar">
+  <a class="nn-appbar-brand" href="#/"><img class="nn-appbar-icon" src="icone.svg" alt=""> SpecGen</a>
+  <nav class="nn-appbar-nav" aria-label="Navigation">
+    <a class="nn-appbar-tab" aria-current="page" href="#/">Accueil</a>
+    <a class="nn-appbar-tab" href="#/contexte">Créer un contexte</a>
+  </nav>
+  <div class="nn-appbar-tools">
+    <button class="nn-icon-btn" aria-label="Aide">…</button>
+    <div class="nn-segmented" role="group" aria-label="Langue">
+      <button aria-pressed="true">FR</button><button aria-pressed="false">EN</button>
+    </div>
+    <button class="nn-icon-btn" aria-label="Changer de thème" onclick="NightNavy.toggle()">…</button>
+    <button class="nn-icon-btn" aria-label="Réglages">…</button>
+  </div>
+</header>
+```
+
+Un onglet qui est un `<button>` prend la classe `is-active`. Sous 760 px de large, la navigation passe sur une
+deuxième ligne et défile. Une app sans langue ou sans aide omet simplement l'élément, sans changer l'ordre des autres.
+
+**Titre de page**, aligné à gauche :
+
+```html
+<div class="nn-page-head">
+  <div>
+    <h1 class="nn-page-title">Nouvelle analyse</h1>
+    <p class="nn-page-subtitle">Importez vos documents, choisissez comment les lire…</p>
+  </div>
+  <button class="nn-btn nn-btn-secondary">Action de la page</button>
+</div>
 ```
 
 ## Police
