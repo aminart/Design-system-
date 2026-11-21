@@ -1,5 +1,14 @@
 # Historique des versions
 
+## 1.2.1 — 2026-11-21
+
+- Cases à cocher et boutons radio dans les apps Tailwind : le contour disparaissait (cases vides et radios),
+  effacé par la remise à zéro de Tailwind (`* { border-width: 0 }`). Les sélecteurs passent de `:where(input…)`
+  à `input:where(…)` : ils l'emportent sur cette remise à zéro.
+- Plus de `margin: 0` imposé : l'alignement reste à l'app (`nn-check` garde le sien).
+- README : comment faire une variante (couleur de l'IA) en Tailwind v4, dont les classes passent après le
+  design system.
+
 ## 1.2.0 — 2026-11-21
 
 - Cases à cocher et boutons radio : tous les `<input type="checkbox">` et `<input type="radio">` prennent le

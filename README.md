@@ -10,7 +10,7 @@ Feuille de style commune à SpecGen, AuditErgo et DocAnalyser : la palette clair
 | `theme-toggle.js` | Bascule clair / sombre, mémorisée dans le navigateur. |
 | `exemple.html` | Page de démonstration : ouvrir dans un navigateur. |
 
-Version : 1.2.0.
+Version : 1.2.1.
 
 ## Choix du thème
 
@@ -52,7 +52,7 @@ La liste complète est en tête de `night-navy.css`. Les contrastes du mode somb
 Dans le dossier du frontend de l'app :
 
 ```bash
-npm install --save-dev github:aminart/Design-system-#v1.2.0
+npm install --save-dev github:aminart/Design-system-#v1.2.1
 ```
 
 Le paquet s'appelle `night-navy` : les fichiers sont ensuite importés depuis `night-navy/…`. Le numéro après `#` fige la version : une app ne change pas de style tant qu'on ne met pas à jour ce numéro.
@@ -180,8 +180,19 @@ Rien à ajouter dans le HTML : dès que `night-navy.css` est chargé, tous les `
 | désactivé | opacité 45 % | idem |
 
 Le contour en `ink-subtle` garde au moins 3:1 sur le fond, le minimum pour un contrôle (WCAG 1.4.11). Les
-sélecteurs sont en `:where()` : une classe de l'app (`h-4 w-4`, `mt-1`…) l'emporte toujours. Pour retrouver
-les 18 px du système, retirer ces classes de taille.
+sélecteurs sont en `input:where(…)` : ils passent devant la remise à zéro de Tailwind (`* { border-width: 0 }`).
+Aucune marge n'est imposée : l'alignement reste à l'app (`mt-0.5`…) ou à `nn-check`.
+
+- **Tailwind v3** (SpecGen, DocAnalyser, Studio Dock) : une classe de l'app l'emporte (`h-4 w-4`, `checked:bg-…`).
+  Pour garder les 18 px du système, retirer les classes de taille.
+- **Tailwind v4** (AuditErgo) : les classes sont rangées dans des `@layer`, qui passent toujours après une règle
+  hors couche. Pour une variante (couleur de l'IA, par exemple), écrire une règle CSS dans l'app :
+
+```css
+.case-ia:checked { background-color: var(--nn-ia); border-color: var(--nn-ia); }
+.case-ia:checked::before { background-color: var(--nn-surface); }
+.case-ia:not(:disabled):hover { border-color: var(--nn-ia); }
+```
 
 Libellé à côté, aligné sur la première ligne du texte :
 
@@ -200,7 +211,7 @@ Aucune police n'est téléchargée, pour que les apps fonctionnent hors ligne. R
 1. Modifier `night-navy.css` : une couleur sombre s'écrit **dans les deux blocs sombres** (préférence système et `data-theme="dark"`).
 2. Vérifier avec `exemple.html`, en clair et en sombre.
 3. Augmenter `version` dans `package.json`, noter le changement dans `CHANGELOG.md`.
-4. Committer, puis poser l'étiquette : `git tag v1.2.0 && git push --tags`.
-5. Dans chaque app, quand on le souhaite : `npm install --save-dev github:aminart/Design-system-#v1.2.0`.
+4. Committer, puis poser l'étiquette : `git tag v1.2.1 && git push --tags`.
+5. Dans chaque app, quand on le souhaite : `npm install --save-dev github:aminart/Design-system-#v1.2.1`.
 
 Dans React, la bascule s'importe dans `main.tsx` : `import "night-navy/theme-toggle";`, puis `window.NightNavy.toggle()` sur le bouton.
