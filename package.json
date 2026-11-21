@@ -1,6 +1,6 @@
 {
   "name": "night-navy",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Design system commun de la suite UX (SpecGen, AuditErgo, DocAnalyser, Mapline, Studio Dock) : palette claire de SpecGen et mode sombre Night Navy.",
   "type": "module",
   "license": "UNLICENSED",

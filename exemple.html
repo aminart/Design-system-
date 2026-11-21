@@ -58,6 +58,20 @@
       <button type="button" class="nn-btn nn-btn-secondary">Annuler</button>
       <button type="button" class="nn-btn nn-btn-primary" disabled>Désactivé</button>
     </div>
+    <div class="row" style="align-items: flex-start; gap: 32px">
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <label class="nn-check"><input type="checkbox" checked> <span>Coché</span></label>
+        <label class="nn-check"><input type="checkbox"> <span>Non coché</span></label>
+        <label class="nn-check"><input type="checkbox" id="mixte"> <span>État mixte</span></label>
+        <label class="nn-check"><input type="checkbox" checked disabled> <span>Désactivé</span></label>
+      </div>
+      <div role="radiogroup" aria-label="Format" style="display: flex; flex-direction: column; gap: 10px">
+        <label class="nn-check"><input type="radio" name="format" checked> <span>Markdown</span></label>
+        <label class="nn-check"><input type="radio" name="format"> <span>Word</span></label>
+        <label class="nn-check"><input type="radio" name="format" disabled> <span>PDF (désactivé)</span></label>
+      </div>
+    </div>
+    <script>document.getElementById('mixte').indeterminate = true;</script>
     <p>Lien : <a href="#" style="color: var(--nn-accent)">ouvrir les paramètres</a> · <code style="font-family: var(--nn-font-mono); color: var(--nn-accent-ink); background: var(--nn-accent-soft); padding: 2px 6px; border-radius: 6px">GUI-01</code></p>
   </section>
 </main>

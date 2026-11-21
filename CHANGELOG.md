@@ -1,5 +1,13 @@
 # Historique des versions
 
+## 1.2.0 — 2026-11-21
+
+- Cases à cocher et boutons radio : tous les `<input type="checkbox">` et `<input type="radio">` prennent le
+  style Night Navy, sans classe à ajouter. 18 px, contour `ink-subtle`, coché en `primary` (coche blanche,
+  point central pour le radio), état mixte, survol `accent`, anneau de focus, désactivé, clair et sombre.
+  Sélecteurs à spécificité nulle : les classes de l'app gardent la main.
+- `nn-check` : libellé à côté d'une case ou d'un radio, aligné sur la première ligne.
+
 ## 1.1.0 — 2026-11-08
 
 - En-tête d'app commun : `nn-appbar` (identité, onglets, utilitaires), `nn-appbar-tab` (onglet actif en bleu

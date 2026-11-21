@@ -4,13 +4,13 @@ Feuille de style commune à SpecGen, AuditErgo et DocAnalyser : la palette clair
 
 | Fichier | Rôle |
 |---|---|
-| `night-navy.css` | Les jetons (`--nn-*`) en clair et en sombre, la base de page et quelques classes `nn-` (bouton, champ, carte, pastille). Fonctionne sans Tailwind. |
+| `night-navy.css` | Les jetons (`--nn-*`) en clair et en sombre, la base de page, les cases à cocher et boutons radio, et quelques classes `nn-` (bouton, champ, carte, pastille, en-tête). Fonctionne sans Tailwind. |
 | `tailwind-v3-preset.js` | Branchement Tailwind v3 : SpecGen, DocAnalyser. |
 | `tailwind-v4.css` | Branchement Tailwind v4 : AuditErgo. |
 | `theme-toggle.js` | Bascule clair / sombre, mémorisée dans le navigateur. |
 | `exemple.html` | Page de démonstration : ouvrir dans un navigateur. |
 
-Version : 1.1.0.
+Version : 1.2.0.
 
 ## Choix du thème
 
@@ -52,7 +52,7 @@ La liste complète est en tête de `night-navy.css`. Les contrastes du mode somb
 Dans le dossier du frontend de l'app :
 
 ```bash
-npm install --save-dev github:aminart/Design-system-#v1.1.0
+npm install --save-dev github:aminart/Design-system-#v1.2.0
 ```
 
 Le paquet s'appelle `night-navy` : les fichiers sont ensuite importés depuis `night-navy/…`. Le numéro après `#` fige la version : une app ne change pas de style tant qu'on ne met pas à jour ce numéro.
@@ -165,6 +165,32 @@ deuxième ligne et défile. Une app sans langue ou sans aide omet simplement l'�
 </div>
 ```
 
+## Cases à cocher et boutons radio (1.2.0)
+
+Rien à ajouter dans le HTML : dès que `night-navy.css` est chargé, tous les `<input type="checkbox">` et
+`<input type="radio">` prennent le style commun, en clair et en sombre.
+
+| État | Case | Radio |
+|---|---|---|
+| repos | contour `ink-subtle`, fond `surface` | idem, rond |
+| coché | fond `primary`, coche `on-primary` | contour `primary`, point `primary` |
+| mixte (`indeterminate`) | fond `primary`, trait | — |
+| survol | contour `accent` (coché : `primary-hover`) | contour `accent` |
+| focus clavier | anneau `focus` de 2 px | idem |
+| désactivé | opacité 45 % | idem |
+
+Le contour en `ink-subtle` garde au moins 3:1 sur le fond, le minimum pour un contrôle (WCAG 1.4.11). Les
+sélecteurs sont en `:where()` : une classe de l'app (`h-4 w-4`, `mt-1`…) l'emporte toujours. Pour retrouver
+les 18 px du système, retirer ces classes de taille.
+
+Libellé à côté, aligné sur la première ligne du texte :
+
+```html
+<label class="nn-check"><input type="checkbox"> <span>Enregistrer un journal des générations</span></label>
+```
+
+En Tailwind, l'équivalent est `flex items-start gap-2.5` sur le `<label>` et `mt-px` sur l'`<input>`.
+
 ## Police
 
 Aucune police n'est téléchargée, pour que les apps fonctionnent hors ligne. Roboto est utilisée si elle est installée sur le poste ou fournie par l'app, sinon Arial. Pour l'embarquer partout, ajouter les fichiers Roboto dans le dossier et un `@font-face`.
@@ -174,7 +200,7 @@ Aucune police n'est téléchargée, pour que les apps fonctionnent hors ligne. R
 1. Modifier `night-navy.css` : une couleur sombre s'écrit **dans les deux blocs sombres** (préférence système et `data-theme="dark"`).
 2. Vérifier avec `exemple.html`, en clair et en sombre.
 3. Augmenter `version` dans `package.json`, noter le changement dans `CHANGELOG.md`.
-4. Committer, puis poser l'étiquette : `git tag v1.1.0 && git push --tags`.
-5. Dans chaque app, quand on le souhaite : `npm install --save-dev github:aminart/Design-system-#v1.1.0`.
+4. Committer, puis poser l'étiquette : `git tag v1.2.0 && git push --tags`.
+5. Dans chaque app, quand on le souhaite : `npm install --save-dev github:aminart/Design-system-#v1.2.0`.
 
 Dans React, la bascule s'importe dans `main.tsx` : `import "night-navy/theme-toggle";`, puis `window.NightNavy.toggle()` sur le bouton.

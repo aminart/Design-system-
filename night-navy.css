@@ -357,3 +357,85 @@ html, body {
 .nn-page-title { margin: 0; color: var(--nn-ink); font: 700 32px/1.15 var(--nn-font-sans); }
 .nn-page-subtitle { margin: 0; color: var(--nn-ink-muted); font: 400 15px/1.5 var(--nn-font-sans); max-width: 820px; }
 @media (max-width: 760px) { .nn-page-title { font-size: 26px; } }
+
+/* ---------------------------------------------------------------- Cases à cocher et boutons radio
+   Tous les <input type="checkbox"> et <input type="radio"> de la page, sans classe à ajouter.
+   18 px, contour ink-subtle (contraste de 3:1 au moins pour un contrôle, WCAG 1.4.11), coché en primary,
+   survol en accent, anneau de focus commun. Sélecteurs en :where() : spécificité nulle, donc une classe
+   de l'app (taille, marge) l'emporte toujours.
+   Libellé à côté : <label class="nn-check"><input type="checkbox"> <span>Texte</span></label> */
+:where(input[type="checkbox"], input[type="radio"]) {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  display: inline-grid;
+  place-content: center;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  border: 1.5px solid var(--nn-ink-subtle);
+  background-color: var(--nn-surface);
+  cursor: pointer;
+  vertical-align: -3px;
+  transition: background-color 0.12s, border-color 0.12s;
+}
+:where(input[type="checkbox"]) { border-radius: 4px; }
+:where(input[type="radio"]) { border-radius: 9999px; }
+
+/* Coche et point dessinés en ::before : ils suivent le thème */
+:where(input[type="checkbox"], input[type="radio"])::before {
+  content: "";
+  transform: scale(0);
+  transition: transform 0.12s ease-out;
+}
+:where(input[type="checkbox"])::before {
+  width: 12px;
+  height: 12px;
+  background-color: var(--nn-on-primary);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.2 6.3l2.4 2.4 5.2-5.4' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.2 6.3l2.4 2.4 5.2-5.4' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+/* État mixte (input.indeterminate = true) : un trait */
+:where(input[type="checkbox"]):indeterminate::before {
+  height: 2px;
+  width: 9px;
+  border-radius: 1px;
+  -webkit-mask: none;
+  mask: none;
+}
+:where(input[type="radio"])::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background-color: var(--nn-primary);
+}
+
+:where(input[type="checkbox"]):is(:checked, :indeterminate) { background-color: var(--nn-primary); border-color: var(--nn-primary); }
+:where(input[type="radio"]):checked { border-color: var(--nn-primary); }
+:where(input[type="checkbox"]):is(:checked, :indeterminate)::before,
+:where(input[type="radio"]):checked::before { transform: scale(1); }
+
+:where(input[type="checkbox"], input[type="radio"]):not(:disabled):hover { border-color: var(--nn-accent); }
+:where(input[type="checkbox"]):is(:checked, :indeterminate):not(:disabled):hover {
+  background-color: var(--nn-primary-hover);
+  border-color: var(--nn-primary-hover);
+}
+:where(input[type="checkbox"], input[type="radio"]):focus-visible { outline: 2px solid var(--nn-focus); outline-offset: 2px; }
+:where(input[type="checkbox"], input[type="radio"]):disabled { cursor: not-allowed; opacity: 0.45; }
+
+@media (prefers-reduced-motion: reduce) {
+  :where(input[type="checkbox"], input[type="radio"]),
+  :where(input[type="checkbox"], input[type="radio"])::before { transition: none; }
+}
+
+/* Libellé à côté du contrôle, aligné sur la première ligne du texte (14 px / 20 px) */
+.nn-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--nn-ink-body);
+  font: 400 14px/20px var(--nn-font-sans);
+  cursor: pointer;
+}
+.nn-check > input { margin-top: 1px; }
+.nn-check:has(> input:disabled) { cursor: not-allowed; color: var(--nn-ink-subtle); }
